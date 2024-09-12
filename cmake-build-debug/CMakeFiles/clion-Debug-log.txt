@@ -1,1 +1,0 @@
-CMakeLists.txt not found in C:\Users\s057522\Documents\Strukturinis programavimas Select CMakeLists.txt
