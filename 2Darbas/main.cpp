@@ -1,5 +1,4 @@
 #include <iostream>
-#include <string>
 
 using namespace std;
 
@@ -91,7 +90,7 @@ int main() {
         case 0: cout << "Egzaminas neislaikytas" << endl; break;
         default: cout << "Netinkama ivestis" << endl;
     }
-    */
+
 
     //Penkta uzduotis
 
@@ -131,6 +130,26 @@ int main() {
             Suma[i] = Skaicius[i] + Suma[z];
             cout << "iteracija: "<<i<<"\t"<<"Tarpine suma: "<<Suma[i]<<endl;
         }
+    }
+
+    //Sesta uzduotis
+
+    double Skaicius6 = 1000;
+    double Metai6 = 20;
+
+
+    for (int i = 1; i <= Metai6; i++) {
+        Skaicius6 = Skaicius6 + Skaicius6 / 100 * 5;
+        cout << "Tarpine suma " << i << " metais: " << Skaicius6 << endl;
+    }
+    cout << "Galutine suma: " << Skaicius6 << endl;
+*/
+
+    //Septinta uzduotis
+
+    for (int i = 1; i <= 20; i++ ) {
+        if (i % 4 == 0) {cout << "Skaicius: " << i << " dalijasi is 4." << endl;}
+        else {continue;}
     }
 
     return 0;
