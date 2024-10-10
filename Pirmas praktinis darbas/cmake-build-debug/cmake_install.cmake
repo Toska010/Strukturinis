@@ -1,4 +1,4 @@
-# Install script for directory: C:/Users/s057522/Documents/Strukturinis programavimas/Valiutos
+# Install script for directory: C:/Users/s057522/Documents/Strukturinis programavimas/Pirmas praktinis darbas
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -45,5 +45,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "C:/Users/s057522/Documents/Strukturinis programavimas/Valiutos/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "C:/Users/s057522/Documents/Strukturinis programavimas/Pirmas praktinis darbas/cmake-build-debug/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
