@@ -26,20 +26,18 @@ void Balsiai() {
 void Daliklis() {
     int Skaicius1;
     int Skaicius2;
-    int BendrasDaliklis;
-    int Loop;
+    int Skaicius3;
     cout << "Iveskite du skaicius: ";
-    cin >> Check;
-    if (Check == "STOP"){EndLoop = Check;}
+    cin >> Skaicius1 >> Skaicius2;
+    if (Skaicius1 == 0 || Skaicius2 == 0){cout << "Dalyba is nulio negalima!" << endl;}
     else {
-        Skaicius1 = Check;
-        cin >> Skaicius2;
-        if (Skaicius1 > Skaicius2){Loop = Skaicius1;}
-        else {Loop = Skaicius2;}
-        for (int i = 1; i <= Loop; i++) {
-            if(Skaicius1 % i == 0 & Skaicius2 % i == 0){BendrasDaliklis = i;}
+        if (Skaicius1 < Skaicius2){Skaicius3 = Skaicius1; Skaicius1 = Skaicius2; Skaicius2 = Skaicius3;}
+        while (Skaicius2 != 0) {
+            Skaicius3 = Skaicius1;
+            Skaicius1 = Skaicius2;
+            Skaicius2 = Skaicius3 % Skaicius1;
+            if(Skaicius2 == 0){cout << "Didziausias bendras daliklis = " << Skaicius1 << endl;}
         }
-        cout << BendrasDaliklis;
     }
 }
 
