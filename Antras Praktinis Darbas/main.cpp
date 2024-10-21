@@ -1,33 +1,28 @@
 #include <iostream>
 #include <string>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
-string BALSIAI[10]{"A","a","E","e","U","u","I","i","O","o"};
-string EndLoop = "GO";
-string Check;
-
 void Balsiai() {
+    string BALSIAI[10]{"A","a","E","e","U","u","I","i","O","o"};
+    string Balsis;
     int BalsiuKiekis = 0;
-    cout << "Iveskite raide: ";
-    cin >> Check;
-    if (Check == "STOP") {
-        EndLoop = Check;
-    }
-    else {
-        for (int i = 0; i < 10; i++) {
-            if(Check == BALSIAI[i]) {BalsiuKiekis++;}
+    cout << "Iveskite raide:";
+    cin >> Balsis;
+    for (int i = 0; i < 10; i++) {
+        if(Balsis == BALSIAI[i]) {BalsiuKiekis++;}
         }
         if (BalsiuKiekis != 0) {cout << "Tai yra balsis" << endl;}
         else {cout << "Tai nera balsis" << endl;}
-    }
 }
 
 void Daliklis() {
     int Skaicius1;
     int Skaicius2;
     int Skaicius3;
-    cout << "Iveskite du skaicius: ";
+    cout << "Iveskite du skaicius:";
     cin >> Skaicius1 >> Skaicius2;
     if (Skaicius1 == 0 || Skaicius2 == 0){cout << "Dalyba is nulio negalima!" << endl;}
     else {
@@ -41,11 +36,142 @@ void Daliklis() {
     }
 }
 
+void Zaidimas() {
+    int Spejimas;
+    int Skaicius;
+    srand(time(0));
+    Skaicius = (rand() %100) + 1;
+    cout << "Atspek skaiciu:" << endl;
+    for (int i = 1; i <=10; i++) {
+        cin >> Spejimas;
+        if (Spejimas == Skaicius) {
+            cout << "Atspejai, sveikinu!" << endl;
+            break;
+        }
+        if (Spejimas < Skaicius) {
+            cout << "Daugiau" << endl;
+        }
+        if (Spejimas > Skaicius) {
+            cout << "Maziau" << endl;
+        }
+        if (i == 10) {
+            cout << endl << "Pasiduodi?\n1: Taip\t2: Ne" << endl;
+            cin >> Spejimas;
+            switch (Spejimas) {
+                case 1: {
+                    break;
+                }
+                case 2: {
+                    i = 0;
+                    cout << "Skaicius" << endl;
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+        }
+    }
+}
+
+void Velniava() {
+    int Skaicius;
+    cout << "Ivesk sveika, teigiama skaiciu:" << endl;
+    cin >> Skaicius;
+    int SMasyvas[Skaicius + 1];
+    for (int i = 1; i < Skaicius + 1; i++) {
+        SMasyvas[i] = i;
+        if (SMasyvas[i] % 3 == 0 && SMasyvas[i] % 5 == 0) {
+            cout << SMasyvas[i] << " FizzBuzz" << endl;
+        }
+        else if (SMasyvas[i] % 3 == 0) {
+            cout << SMasyvas[i] << " Fizz" << endl;
+        }
+        else if (SMasyvas[i] % 5 == 0) {
+            cout << SMasyvas[i] << " Buzz" << endl;
+        }
+        else {cout << SMasyvas[i] << endl;}
+    }
+}
+
+int Pasirinkimas = 0;
+
 int main() {
-    cout << "Noredami sustabdyti programa iveskite ''STOP''" << endl;
-    while (EndLoop != "STOP") {
-    //Balsiai();
-        Daliklis();
+    for (int Ratas = 0; Ratas <=1; Ratas++) {
+        cout << "Pasirinkite veiksma:\n1: Balses tikrinimas\n2: Bendras didziausias daliklis\n3: Atspek skaiciu\n4: FizzBuzz\n5: Iseiti" << endl;
+        cin >> Pasirinkimas;
+        switch (Pasirinkimas) {
+            case 1: {
+                Ratas--;
+                Balsiai();
+                break;
+            }
+            case 2: {
+                Ratas--;
+                Daliklis();
+                break;
+            }
+            case 3: {
+                Ratas--;
+                Zaidimas();
+                break;
+            }
+            case 4: {
+                Ratas--;
+                Velniava();
+                break;
+            }
+            case 69: {
+                Ratas = 2;
+                cout << "Vaikiska";
+                break;
+            }
+            case 420: {
+                Ratas = 2;
+                cout << ";)" << endl;
+                break;
+            }
+            case 911: {
+                srand(time(0));
+                int Faktas = (rand() % 7) + 1;
+                switch (Faktas) {
+                    case 1: {
+                        cout << "The deadliest terrorist attacks on U.S. soil in U.S. history" << endl;
+                        break;
+                    }
+                    case 2: {
+                        cout << "Over 3,000 people died in the attacks and rescue efforts" << endl;
+                        break;
+                    }
+                    case 3: {
+                        cout << "President George W. Bush was reading with schoolchildren during the attacks" << endl;
+                        break;
+                    }
+                    case 4: {
+                        cout << "Flight 93 crashed before reaching its target" << endl;
+                        break;
+                    }
+                    case 5: {
+                        cout << "It was the longest uninterrupted news event in American history" << endl;
+                        break;
+                    }
+                    case 6: {
+                        cout << "16 people survived in a stairwell during the collapse of the North Tower" << endl;
+                        break;
+                    }
+                    case 7: {
+                        cout << "In total, 2,977 people (not including the 19 plane hijackers) died in the attacks and thousands were injured" << endl;
+                        break;
+                    }
+                }
+
+            }
+            default: {
+                Ratas = 2;
+                cout << "Viso gero" << endl;
+                break;
+            }
+        }
     }
     return 0;
 }
