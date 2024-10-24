@@ -21,11 +21,11 @@ void Balsiai() {
 void Daliklis() {
     int Skaicius1;
     int Skaicius2;
-    int Skaicius3;
     cout << "Iveskite du skaicius:";
     cin >> Skaicius1 >> Skaicius2;
     if (Skaicius1 == 0 || Skaicius2 == 0){cout << "Dalyba is nulio negalima!" << endl;}
     else {
+        int Skaicius3;
         if (Skaicius1 < Skaicius2){Skaicius3 = Skaicius1; Skaicius1 = Skaicius2; Skaicius2 = Skaicius3;}
         while (Skaicius2 != 0) {
             Skaicius3 = Skaicius1;
@@ -37,10 +37,9 @@ void Daliklis() {
 }
 
 void Zaidimas() {
+    srand(time(nullptr));
     int Spejimas;
-    int Skaicius;
-    srand(time(0));
-    Skaicius = (rand() %100) + 1;
+    int Skaicius = (rand() %100) + 1;
     cout << "Atspek skaiciu:" << endl;
     for (int i = 1; i <=10; i++) {
         cin >> Spejimas;
@@ -132,7 +131,7 @@ int main() {
                 break;
             }
             case 911: {
-                srand(time(0));
+                srand(time(nullptr));
                 int Faktas = (rand() % 7) + 1;
                 switch (Faktas) {
                     case 1: {
