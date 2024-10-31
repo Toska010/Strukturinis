@@ -5,17 +5,17 @@
 
 using namespace std;
 
-void Balsiai() {
+bool Balsiai() {
     string BALSIAI[10]{"A","a","E","e","U","u","I","i","O","o"};
     string Balsis;
-    int BalsiuKiekis = 0;
     cout << "Iveskite raide:";
     cin >> Balsis;
     for (int i = 0; i < 10; i++) {
-        if(Balsis == BALSIAI[i]) {BalsiuKiekis++;}
+        if(Balsis == BALSIAI[i]) {
+            return true;
         }
-        if (BalsiuKiekis != 0) {cout << "Tai yra balsis" << endl;}
-        else {cout << "Tai nera balsis" << endl;}
+    }
+    return false;
 }
 
 void Daliklis() {
