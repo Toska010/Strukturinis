@@ -31,12 +31,12 @@ void Failai_I_Masyvus() {
     KainuFailas.close();
     PatiekaluFailas.close();
 }
-void Patiekalai_Bruksniai_Kainos(int Pradzia, int KartojimasIki) {
+void Patiekalai_Bruksniai_Kainos(int Pradzia, int KartojimasIki, int Poslinkis) {
     char BuferisIlgiui[MasyvuDydis];
     for (int i = Pradzia; i < KartojimasIki; i++) {
         int SumosIlgis = snprintf(BuferisIlgiui, sizeof(BuferisIlgiui), "%.2f", Meniu[i].Kainos);
         cout << Meniu[i].Pavadinimai << " ";
-        int Linija = Meniu[i].Pavadinimai.length() + SumosIlgis;;
+        int Linija = Meniu[i].Pavadinimai.length() + SumosIlgis + Poslinkis;
         for (int i = 0; i < Plotis - (Linija + 2); i++) {
             cout << "-";
         }
@@ -61,24 +61,62 @@ void MeniuAtvaizdavimas() {
         cout << "-";
     }
     cout << endl << endl;
-    Patiekalai_Bruksniai_Kainos(0, Ratas);
+    Patiekalai_Bruksniai_Kainos(0, Ratas, 0);
     cout << endl;
 }
 void Uzsakymas() {
     Pvm = 0;
     GalutineSuma = 0;
-    cout << "Iveskite kiekius uzsakymui" << endl;
+    cout << "Noredami uzsisakyti pasirinkite patiekala irasydami numeri nurodyta pries ji ir iveskite kieki" << endl;
+    cout << "0:  Iseiti" << endl;
     for (int i = 0; i < Ratas; i++) {
-        Patiekalai_Bruksniai_Kainos(i, i+1);
-        cin >> Meniu[i].KiekisUzsakymui;
-        if (Meniu[i].KiekisUzsakymui < 0) {
-            Meniu[i].KiekisUzsakymui = 0;
+        cout << i + 1 << ":  ";
+        Patiekalai_Bruksniai_Kainos(i, i+1, 3);
+    }
+    cout << Ratas + 1 << ":  Panaikinti uzsakyma" << endl;
+    cout << Ratas + 2 << ": Priminti uzsakyma" << endl;
+    int Kiekis;
+    int Preke;
+    while (true) {
+        cin >> Preke;
+        if (Preke > 0 && Preke <= Ratas) {
+            cin >> Kiekis;
+            if (Kiekis < 0) {
+                cout << "Mes neperkam patiekalu!" << endl;
+            }
+            else if (Kiekis >= 0) {
+                Meniu[Preke - 1].KiekisUzsakymui = Meniu[Preke - 1].KiekisUzsakymui + Kiekis;
+                cout << Preke << ": " << Meniu[Preke - 1].Pavadinimai << " " << Meniu[Preke - 1].KiekisUzsakymui << " vnt" << endl;
+            }
         }
-        Meniu[i].Suma = float(Meniu[i].KiekisUzsakymui) * Meniu[i].Kainos;
-        Pvm = Pvm + Meniu[i].Suma * 0.21;
-        GalutineSuma = GalutineSuma + Meniu[i].Suma * 1.21;
+        else if (Preke == 0) {
+            cin.ignore(Plotis,'\n');
+            for (int i = 0; i < Ratas; i++) {
+                Meniu[i].Suma = float(Meniu[i].KiekisUzsakymui) * Meniu[i].Kainos;
+                Pvm = Pvm + Meniu[i].Suma * 0.21;
+                GalutineSuma = GalutineSuma + Meniu[i].Suma * 1.21;
+            }
+            break;
         }
+        else if (Preke == Ratas + 1) {
+            cin.ignore(Plotis,'\n');
+            for (int i = 0; i < Ratas; i++) {
+                Meniu[i].KiekisUzsakymui = 0;
+            }
+
+        }
+        else if (Preke == Ratas + 2) {
+            cin.ignore(Plotis,'\n');
+            for (int i = 0; i < Ratas; i++) {
+                cout << i + 1 << ": " << Meniu[i].KiekisUzsakymui << " "  << Meniu[i].Pavadinimai << endl;
+            }
+        }
+        else {
+            cout << "Tokio pasirinkimo nera!" << endl;
+        }
+    }
 }
+/**/
 void Kvitas() {
     ofstream Cekis;
     Cekis.open("Kvitas.txt");
@@ -91,41 +129,41 @@ void Kvitas() {
             int SumosIlgis = snprintf(BuferisIlgiui, sizeof(BuferisIlgiui), "%.2f", Meniu[i].Suma);
             int KiekioIlgis = snprintf(BuferisIlgiui, sizeof(BuferisIlgiui), "%d", Meniu[i].KiekisUzsakymui);
             int Tarpas = Meniu[i].Pavadinimai.length() + SumosIlgis + KiekioIlgis;
-            cout << "Kiekis: " << Meniu[i].KiekisUzsakymui << " | " << Meniu[i].Pavadinimai << " ";
-            Cekis << "Kiekis: " << Meniu[i].KiekisUzsakymui << " | " << Meniu[i].Pavadinimai << " ";
-            for (int j = 0; j < Plotis - (13 + Tarpas); j++) {
+            cout << Meniu[i].KiekisUzsakymui << " " << Meniu[i].Pavadinimai << " ";
+            Cekis << Meniu[i].KiekisUzsakymui << " " << Meniu[i].Pavadinimai << " ";
+            for (int j = 0; j < Plotis - (3 + Tarpas); j++) {
                 cout << "-";
-                if (j+1 < Plotis - (13 + Tarpas)) {
+                if (j+1 < Plotis - (4 + Tarpas)) {
                     Cekis << "_";
                 }
             }
             cout << " " << fixed << setprecision(2) << Meniu[i].Suma << endl;
-            Cekis << " " << fixed << setprecision(2) << Meniu[i].Suma << "€" << endl;
+            Cekis << " " << fixed << setprecision(2) << Meniu[i].Suma << " €" << endl;
         }
     }
     int SumosIlgis = snprintf(BuferisIlgiui, sizeof(BuferisIlgiui), "%.2f", Pvm);
-    cout << "Pvm 21%:  | ";
-    Cekis << "Pvm 21%:  | ";
-    for (int i = 0; i < Plotis - (12 + SumosIlgis); i++) {
-        cout << " ";
-        if (i + 1 < Plotis - (12 + SumosIlgis)) {
-            Cekis << " ";
+    cout << "Pvm 21%: ";
+    Cekis << "Pvm 21%: ";
+    for (int i = 0; i < Plotis - (10 + SumosIlgis); i++) {
+        cout << "-";
+        if (i + 1 < Plotis - (11 + SumosIlgis)) {
+            Cekis << "_";
         }
     }
-    cout << fixed << setprecision(2) << Pvm << endl;
-    Cekis << fixed << setprecision(2) << Pvm << "€" << endl;
+    cout << fixed << setprecision(2) << " " << Pvm << endl;
+    Cekis << fixed << setprecision(2) << " " << Pvm << " €" << endl;
 
     SumosIlgis = snprintf(BuferisIlgiui, sizeof(BuferisIlgiui), "%.2f", GalutineSuma);
-    cout << "Viso:     | ";
-    Cekis << "Viso:     | ";
-    for (int i = 0; i < Plotis - (12 + SumosIlgis); i++) {
-        cout << " ";
-        if (i+1 < Plotis - (12 + SumosIlgis)) {
-            Cekis << " ";
+    cout << "Viso: ";
+    Cekis << "Viso: ";
+    for (int i = 0; i < Plotis - (7 + SumosIlgis); i++) {
+        cout << "-";
+        if (i+1 < Plotis - (8 + SumosIlgis)) {
+            Cekis << "_";
         }
     }
-    cout << fixed << setprecision(2) << GalutineSuma << endl;
-    Cekis << fixed << setprecision(2) << GalutineSuma << "€" << endl;
+    cout << fixed << setprecision(2) << " " << GalutineSuma << endl << endl;
+    Cekis << fixed << setprecision(2) << " " << GalutineSuma << " €" << endl;
     Cekis.close();
 }
 
